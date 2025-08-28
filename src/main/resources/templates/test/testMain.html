@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div th:unless="${state == null}">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>정상적으로 삭제되었습니다.</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+  <h3>여러가지 ModelAttribute 전달 방법</h3>
+  <p>
+    <ul>
+      <li><a th:href="@{/mapping/page}">page.html 이동</a></li>
+      <li><a th:href="@{/mapping/requestMapping}">Request Mapping And Model</a></li>
+      <li><a th:href="@{/mapping/modelAndView}">ModelAndView</a></li>
+      <li><a th:href="@{/mapping/redirectView}">RedirectView</a></li>
+      <li><a th:href="@{/mapping/delete}">삭제하기</a></li>
+      <li><a th:href="@{/mapping/redirectView2}">modelAndView2</a></li>
+  </ul>
+  <hr>
+  <H3>외부 URL 사용</H3>
+  <ul>
+    <li><a th:href="@{/mapping/naver}">네이버</a></li>
+    <li><a th:href="@{/mapping/local}">리액트 로컬</a></li>
+  </ul>
+</body>
+</html>
