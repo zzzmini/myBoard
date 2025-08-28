@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 모든 작업 컨텐츠가 들어오는 곳 -->
+<div layout:fragment="content" class="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div>
+            <tr th:each="article : ${articles}" th:object="${article}">
+                <th scope="row" th:text="*{id}">1</th>
+                <td>
+                    <a href="" th:text="*{title}">제목111 </a>
+                </td>
+                <td th:text="*{content}">내용 1111</td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
+    <a href="/templates/articles/new">New Article</a>
+</div>
+</body>
+</html>
