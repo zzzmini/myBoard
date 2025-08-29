@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,6 +71,22 @@ public class ArticleController {
         articleService.deleteArticle(id);
         redirectAttributes.addFlashAttribute("msg",
                 "정상적으로 삭제 되었습니다.");
+        return "redirect:/articles";
+    }
+
+    // 신규 게시글 입력 창 보이기
+    @GetMapping("new")
+    public String inputForm(Model model) {
+        model.addAttribute("dto", new ArticleDto());
+        return "/articles/new";
+    }
+
+    // 신규 게시글 저장
+    @PostMapping("create")
+    public String createArticle(ArticleDto dto, RedirectAttributes redirectAttributes) {
+        articleService.insertArticle(dto);
+        redirectAttributes.addFlashAttribute("msg",
+                "새로운 게시글이 등록되었습니다.");
         return "redirect:/articles";
     }
 }
