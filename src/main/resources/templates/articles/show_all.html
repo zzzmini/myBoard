@@ -29,6 +29,39 @@
         </div>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example" align="center">
+        <ul class="pagination">
+            <!--  왼쪽 끝 이동 단추 -->
+            <li class="page-item"
+                th:classappend="${articles.number}<=0? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|/articles?page=${articles.number-1}|}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!--  페이지 번호 시작 -->
+            <th:block th:each="pageNumber : ${pageBars}">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{|/articles?page=${pageNumber}|}"
+                       th:text="${pageNumber + 1}">1</a>
+                </li>
+            </th:block>
+            <!--  페이지 번호 끝 -->
+
+            <!--  오른쪽 끝 이동 단추 -->
+            <li class="page-item"
+                th:classappend="${articles.number + 1} == ${articles.totalPages}? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|/articles?page=${articles.number+1}|}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
     <a href="/templates/articles/new">New Article</a>
 </div>
 </body>
