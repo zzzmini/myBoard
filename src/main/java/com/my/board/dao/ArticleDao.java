@@ -20,4 +20,8 @@ public class ArticleDao {
         List<Article> articles = em.createQuery(sql).getResultList();
         return articles;
     }
+
+    public Article getOneArticle(Long id) {
+        return em.find(Article.class, id);
+    }
 }

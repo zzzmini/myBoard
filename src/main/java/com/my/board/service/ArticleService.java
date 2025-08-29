@@ -36,4 +36,12 @@ public class ArticleService {
         }
         return articles.map(x -> ArticleDto.fromArticle(x));
     }
+
+    public ArticleDto getOneArticle(Long id) {
+        Article article = dao.getOneArticle(id);
+        if (ObjectUtils.isEmpty(article)) {
+            return null;
+        }
+        return ArticleDto.fromArticle(article);
+    }
 }
