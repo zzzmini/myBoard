@@ -22,7 +22,7 @@
             <tr th:each="article : ${articles}" th:object="${article}">
                 <th scope="row" th:text="*{id}">1</th>
                 <td>
-                    <a href="" th:text="*{title}">제목111 </a>
+                    <a th:href="@{|/articles/*{id}|}" th:text="*{title}">제목111 </a>
                 </td>
                 <td th:text="*{content}">내용 1111</td>
             </tr>
@@ -62,7 +62,7 @@
             </li>
         </ul>
     </nav>
-    <a href="/templates/articles/new">New Article</a>
+    <a href="/articles/new">New Article</a>
 </div>
 </body>
 </html>
