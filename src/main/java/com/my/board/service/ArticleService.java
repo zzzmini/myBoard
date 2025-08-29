@@ -44,4 +44,8 @@ public class ArticleService {
         }
         return ArticleDto.fromArticle(article);
     }
+
+    public void deleteArticle(Long id) {
+        dao.deleteArticle(id);
+    }
 }

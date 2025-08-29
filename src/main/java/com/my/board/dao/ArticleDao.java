@@ -24,4 +24,9 @@ public class ArticleDao {
     public Article getOneArticle(Long id) {
         return em.find(Article.class, id);
     }
+
+    public void deleteArticle(Long id) {
+        Article article = em.find(Article.class, id);
+        em.remove(article);
+    }
 }
