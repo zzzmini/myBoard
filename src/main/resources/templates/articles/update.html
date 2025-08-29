@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form class="container" action="/templates/articles/update" method="post">
-    <div class="mb3">
-        <label class="form-label">제목</label>
-        <input type="text" class="form-control" name="title">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">내용</label>
-        <textarea class="form-control" row="3" name="content"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="">Go to Article List</a>
-</form>
+<!-- 모든 작업 컨텐츠가 들어오는 곳 -->
+<div layout:fragment="content" class="content">
+    <form class="container" action="/articles/update" method="post"
+                th:object="${dto}">
+        <input type="hidden" th:field="*{id}">
+        <div class="mb3">
+            <label class="form-label">제목</label>
+            <input type="text" class="form-control" name="title" th:field="*{title}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+            <textarea class="form-control" row="3" name="content" th:field="*{content}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/articles">Go to Article List</a>
+    </form>
+</div>
 </body>
 </html>

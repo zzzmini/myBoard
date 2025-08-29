@@ -34,4 +34,10 @@ public class ArticleDao {
         em.persist(article);
         em.flush();
     }
+
+    public void updateAtricle(ArticleDto dto) {
+        Article article = em.find(Article.class, dto.getId());
+        article.setTitle(dto.getTitle());
+        article.setContent(dto.getContent());
+    }
 }
