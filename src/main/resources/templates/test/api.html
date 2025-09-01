@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    userId : <input type="text" id="userId"><br>
+    password : <input type="text" id="password"><br>
+    <button id="btn_apiTest">ApiTest</button><br>
+    <button id="btn_stringTest">StringTest</button><br>
+    <button id="btn_arrayTest">ArrayTest</button><br>
+    <button id="btn_deleteTest">DeleteTest</button><br>
+
+    <script>
+        // HTML 폼이 전부 로딩된 이후에 다음의 함수를 실행
+        document.addEventListener('DOMContentLoaded', function(){
+            // API POST 테스트 버튼 클릭 시
+            document.getElementById('btn_apiTest').addEventListener('click', function(){
+                // API 호출 메서드 : fetch 함수를 실행
+                // fetch(찾아갈URL, 실행할 아이)
+                fetch('apiEntityTest', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'userId': document.getElementById('userId').value,
+                        'password': document.getElementById('password').value
+                    })
+                })
+                .then(response => response.text())
+                .then(
+                    data => {console.log(data);}
+                )
+                .catch(
+                    error => {console.log(error);}
+                )
+            })
+            // delete Test
+            document.getElementById('btn_deleteTest').addEventListener('click', function(){
+                // API 호출 메서드 : fetch 함수를 실행
+                // fetch(찾아갈URL, 실행할 아이)
+                fetch('delete', {
+                    method: 'DELETE'
+                })
+                .then(response => response.text())
+                .then(
+                    data => {console.log(data);}
+                )
+                .catch(
+                    error => {console.log(error);}
+                )
+            })
+        })
+    </script>
+</body>
+</html>
