@@ -34,8 +34,9 @@
         <div class="card-header">
             <!--  닉네임          -->
             <span th:text="*{nickname}">Featured</span>
-            <a class="btn btn-sm btn-outline-primary">수정</a>
+            <a class="btn btn-sm btn-outline-primary" id="comment-update-btn">수정</a>
             <a class="btn btn-sm btn-outline-primary" id="comment-delete-btn">삭제</a>
+            <input type="hidden" th:value="*{id}">
         </div>
         <!-- 댓글의 내용(body) -->
         <div class="card-body">
@@ -61,6 +62,42 @@
     <!-- th:inline 은 자바스크립트에서 ${~~} 타임리프 객체 지정을 할 수 있는 스크립트-->
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function(){
+            // 댓글 삭제 버튼 이벤트
+            document.addEventListener('click', function(event){
+                if(event.target.id === 'comment-delete-btn'){
+                    // 현재 선택된 삭제 버튼 바로 옆의 hidden을 찾아서
+                    // 거기 있는 id를 획득
+                    const commentId = event.target.nextElementSibling.value;
+                    const sendUrl = `/api/comments/${commentId}`;
+                    // fetch로 삭제 처리
+                    fetch(sendUrl, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type' : 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        location.href=`/articles/[[${dto.id}]]`
+                    })
+                    .catch(error => {
+                        console.log('Error : ' , error);
+                    })
+                }
+            })
+
+            // 수정 단추 누르면 update_commnet.html 보이기
+            document.addEventListener('click', function(event){
+                if(event.target.id === 'comment-update-btn'){
+                    // 현재 선택된 수정 버튼 바로 옆, 옆의 hidden을 찾아서
+                    // 거기 있는 id를 획득
+                    const commentId = event.target.nextElementSibling.nextElementSibling.value;
+                    location.href = `/articles/comments/view/${commentId}`;
+                }
+            })
+
+
             // 댓글 작성 버튼 이벤트
             const commentCreateButton = document.getElementById('comment-create-btn');
 
