@@ -35,4 +35,11 @@ public class CommentDao {
         // Dirty Checking에 의해서 저장까지 됨.
         updateComment.setBody(comment.getBody());
     }
+
+    public void deleteComment(Long commentId) {
+        // 원본 찾기
+        Comment comment = em.find(Comment.class, commentId);
+        // 삭제하기
+        em.remove(comment);
+    }
 }
