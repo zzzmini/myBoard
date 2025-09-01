@@ -58,6 +58,57 @@
         <!-- 전송버튼-->
         <button type="button" class="btn btn-primary" id="comment-create-btn">댓글 작성</button>
     </form>
+    <!-- th:inline 은 자바스크립트에서 ${~~} 타임리프 객체 지정을 할 수 있는 스크립트-->
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function(){
+            // 댓글 작성 버튼 이벤트
+            const commentCreateButton = document.getElementById('comment-create-btn');
+
+            commentCreateButton.addEventListener('click', function(event){
+                //  작성버튼 중간에 누를 때 이미 작성한 인풋상자 안 지우기
+                event.preventDefault();
+                // 닉네임과 바디를 찾아서 변수로 할당
+                const nicknameInput = document.getElementById('new-comment-nickname');
+                const bodyInput = document.getElementById('new-comment-body');
+
+                // 닉네임과 바디가 비었는지 확인
+                if(nicknameInput.value == ''){
+                    alert('닉네임을 입력하세요');
+                    nicknameInput.focus();
+                    return;
+                }
+                if(bodyInput.value == ''){
+                    alert('내용을 입력하세요');
+                    bodyInput.focus();
+                    return;
+                }
+                // 전송할 url을 변수로 만들기
+                const sendUrl = `/api/articles/[[${dto.id}]]/comments`;
+                // 추가할 댓글을 json으로 만들기
+                const newComment = {
+                        "nickname" : nicknameInput.value,
+                        "body" : bodyInput.value
+                }
+
+                // fetch 함수로 api 호출하기
+                fetch(sendUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify(newComment)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.href=`/articles/[[${dto.id}]]`
+                })
+                .catch(error => {
+                    console.log('Error : ', error);
+                })
+            })
+        })
+    </script>
 </div>
 </body>
 </html>
