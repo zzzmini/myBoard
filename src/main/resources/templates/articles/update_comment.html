@@ -10,6 +10,7 @@
 <!-- 모든 작업 컨텐츠가 들어오는 곳 -->
 <div layout:fragment="content" class="content">
     <form class="container" th:object="${dto}">
+        <input type="hidden" th:value="*{id}">
         <div class="mb3">
             <label class="form-label"> 닉네임</label>
             <input type="text" th:field="*{nickname}" class="form-control" name="title" id="update-comment-nickname">
@@ -21,6 +22,42 @@
         <button type="button" class="btn btn-primary" id="comment-update-btn">댓글수정</button>
         <a th:href="@{/articles}">Go to Article List</a>
     </form>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function(){
+        const updateButton = document.getElementById('comment-update-btn');
+        updateButton.addEventListener('click', function(event){
+            event.preventDefault();
+            const bodyInput = document.getElementById('update-comment-body');
+            if(bodyInput.value.trim() === ''){
+                alert('내용을 입력하세요');
+                bodyInput.focus();
+                return;
+            }
+
+            const sendUrl = `/api/comments/[[${dto.id}]]`;
+            console.log(sendUrl);
+            const updateComment = {
+                body : bodyInput.value
+            }
+
+            fetch(sendUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body : JSON.stringify(updateComment)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.href=`/articles/[[${articleId}]]`
+            })
+            .catch(error => {
+                console.log('Error : ' , error);
+            })
+        })
+    })
+</script>
 </div>
 </body>
 </html>
